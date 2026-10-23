@@ -53,5 +53,15 @@ sudo ip -n container route add default dev wg0
 
 Now, to run the `<app>` application through the wireguard interface:
 ```
-sudo ip netns exec container sudo HOME="/home/nawaf" XDG_RUNTIME_DIR="/run/user/1000"  -u $USER <app>
+sudo ip netns exec container sudo HOME="/home/<user>" XDG_RUNTIME_DIR="/run/user/<uid>"  -u $USER <app>
 ```
+Where `<user>` and `<uid>` correspond to your linux username and user id respectively.
+You can obtain `<user>` and `<uid>` (which is typically `1000`) with `echo $USER $UID`.
+
+---
+
+For example, after creating the network namespace `container` we can run firefox inside this contianer with:
+```
+sudo ip netns exec container sudo HOME="/home/nawaf" XDG_RUNTIME_DIR="/run/user/1000" -u $USER firefox
+```
+Now, all of the traffic to and from firefox would run through the wireguard tunnel.
