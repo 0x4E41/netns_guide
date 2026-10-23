@@ -48,6 +48,7 @@ Finally, we assign the interface the `<ipv4-address>` (and `<ipv6-address>` if a
 sudo ip -n container addr add <ipv4-address> dev wg0
 sudo ip -n container addr add <ipv6-address> dev wg0 # if you have an ipv6 address in your wg0.conf file
 sudo ip netns exec container wg setconf wg0 ./wg0.conf
+sudo ip -n container link set wg0 up
 sudo ip -n container route add default dev wg0
 ```
 
